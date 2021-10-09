@@ -1,0 +1,16 @@
+package com.xixiy.blog.mapper;
+
+import com.xixiy.blog.entity.ArticleBody;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author xixiy
+ * @since 2021-10-09
+ */
+public interface ArticleBodyMapper extends BaseMapper<ArticleBody> {
+
+}
