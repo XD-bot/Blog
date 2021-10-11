@@ -5,11 +5,14 @@ import com.xixiy.blog.mapper.TagMapper;
 import com.xixiy.blog.service.ITagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xixiy.blog.vo.TagVo;
+import com.xixiy.blog.vo.params.Result;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,6 +34,17 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         List<Tag> tags= tagMapper.findTagByArticleId(articleId);
 
         return copyList(tags);
+    }
+
+    @Override
+    public Result findHotTags(int limit) {
+        List<Long> hotTagId = tagMapper.findHotTagsId(limit);
+        if (CollectionUtils.isEmpty(hotTagId)){
+            return Result.success(Collections.emptyList());
+        }
+        //根据tagId查询tag
+        List<Tag> hotTagList = tagMapper.findHotTag(hotTagId);
+        return Result.success(hotTagList);
     }
 
     private List<TagVo> copyList(List<Tag> tags) {
